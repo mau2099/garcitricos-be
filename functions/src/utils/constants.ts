@@ -1,0 +1,2 @@
+export const FIVE_MINUTES_IN_SECONDS = 1;
+export const SIXTY_MINUTES_IN_SECONDS = 3600;
