@@ -9,7 +9,7 @@ const recordProps = {
 };
 
 export const getSales = async () => {
-  let data: any[] = [];
+  const data: any[] = [];
   const snapshot = await firebase.collection(collection).get();
   snapshot.forEach((element) => {
     data.push({

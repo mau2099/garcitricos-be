@@ -1,5 +1,4 @@
 import express from 'express';
-import { RequestHandler } from 'express';
 import {
   createSale,
   getSales,
@@ -10,11 +9,11 @@ import {
 // const { idSchema, createSaleSchema } = require('/utils/schemas/sales');
 // const validateSchemaMiddleware = require('/utils/middleware/validateDataHandler');
 // const cacheResponse = require('utils/cacheResponse');
-import { cacheResponse } from 'utils/cacheResponse';
+import { cacheResponse } from './../../../utils/cacheResponse';
 import {
   FIVE_MINUTES_IN_SECONDS,
   SIXTY_MINUTES_IN_SECONDS,
-} from 'utils/constants';
+} from './../../../utils/constants';
 
 export const apiRouterSales = (app: any) => {
   const router = express.Router();
