@@ -3,9 +3,9 @@ import * as admin from 'firebase-admin';
 
 const collection = 'sales';
 
-const timestamp = admin.firestore.FieldValue.serverTimestamp();
-const recordProps = {
-  timestamp,
+const createdTimestamp = admin.firestore.FieldValue.serverTimestamp();
+const auditField = {
+  timestamp: createdTimestamp,
 };
 
 export const getSales = async () => {
@@ -28,7 +28,7 @@ export const getSale = async (id: any) => {
 export const createSale = async (item: any) => {
   const data = await firebase
     .collection(collection)
-    .add({ item, ...recordProps });
+    .add({ ...item, ...auditField });
   return data.id;
 };
 
@@ -36,7 +36,7 @@ export const updateSale = async (id: any, item: any) => {
   const data = await firebase
     .collection(collection)
     .doc(id)
-    .update({ item, ...recordProps });
+    .update({ ...item, ...auditField });
   return data.writeTime;
 };
 

@@ -1,0 +1,20 @@
+{
+  "name": "garcitricos-be",
+  "version": "1.0.0",
+  "description": "backend api for garcitricos app",
+  "main": "index.js",
+  "scripts": {
+    "serve": "cd functions && npm run serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kreuk2099/garcitricos-be.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kreuk2099/garcitricos-be/issues"
+  },
+  "homepage": "https://github.com/kreuk2099/garcitricos-be#readme"
+}
