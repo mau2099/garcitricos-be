@@ -1,6 +1,9 @@
 const functions = require('firebase-functions');
 const express = require('express');
 import { apiRouterSales } from './api/sales/route';
+import { apiRouterCommodities } from './api/commodities/route';
+import { apiRouterProviders } from './api/providers/route';
+
 // import { RequestHandler } from 'express';
 
 const cors = require('cors');
@@ -28,8 +31,10 @@ const app = express();
 app.use(cors({ origin: true }));
 
 apiRouterSales(app);
-app.get('/hello', (req: any, res: any) => {
-  return res.status(200).send('Hello!');
-});
+
+apiRouterCommodities(app);
+
+apiRouterProviders(app);
+
 
 exports.app = functions.https.onRequest(app);

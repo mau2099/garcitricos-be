@@ -1,16 +1,14 @@
-import { firebase } from './../../../utils/firebase';
+import { firebase } from '../../../utils/firebase';
 import * as admin from 'firebase-admin';
 
-import { getCommodity } from '../../commodities/service';
-
-const collection = 'sales';
+const collection = 'providers';
 
 const createdTimestamp = admin.firestore.FieldValue.serverTimestamp();
 const auditField = {
   timestamp: createdTimestamp,
 };
 
-export const getSales = async () => {
+export const getProviders = async () => {
   const data: any[] = [];
   const snapshot = await firebase.collection(collection).get();
   snapshot.forEach((element) => {
@@ -22,29 +20,19 @@ export const getSales = async () => {
   return data || [];
 };
 
-export const getSale = async (id: any) => {
+export const getProvider = async (id: any) => {
   const data = await firebase.collection(collection).doc(id).get();
-
-  if (!data.exists) return [];
-
-  const sale = data?.data();
-  const commodity = await getCommodity(sale?.commodityId);
-
-  const composedData = {
-    ...sale,
-    commodityId: commodity,
-  };
-  return composedData;
+  return data?.data() || [];
 };
 
-export const createSale = async (item: any) => {
+export const createProvider = async (item: any) => {
   const data = await firebase
     .collection(collection)
     .add({ ...item, ...auditField });
   return data.id;
 };
 
-export const updateSale = async (id: any, item: any) => {
+export const updateProvider = async (id: any, item: any) => {
   const data = await firebase
     .collection(collection)
     .doc(id)
@@ -52,7 +40,7 @@ export const updateSale = async (id: any, item: any) => {
   return data.writeTime;
 };
 
-export const deleteSale = async (id: any) => {
+export const deleteProvider = async (id: any) => {
   const data = await firebase.collection(collection).doc(id).delete();
   return data.writeTime;
 };
