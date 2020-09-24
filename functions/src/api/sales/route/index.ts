@@ -26,6 +26,7 @@ export const apiRouterSales = (app: any) => {
       try {
         const { id } = req.params;
         const data = await getSales();
+
         // return res.status(200).send('GET FROM api/sales!', id);
         return res.status(200).json({
           data: data,

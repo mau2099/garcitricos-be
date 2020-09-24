@@ -1,7 +1,8 @@
 import { firebase } from './../../../utils/firebase';
 import * as admin from 'firebase-admin';
 
-import { getCommodity } from '../../commodities/service';
+import { getCommodities, getCommodity } from '../../commodities/service';
+import { getProvider, getProviders } from '../../providers/service';
 
 const collection = 'sales';
 
@@ -11,15 +12,46 @@ const auditField = {
 };
 
 export const getSales = async () => {
-  const data: any[] = [];
+  let data: any[] = [];
   const snapshot = await firebase.collection(collection).get();
-  snapshot.forEach((element) => {
-    data.push({
+
+  const commodities = await getCommodities();
+  const providers = await getProviders();
+
+  if (snapshot.empty) return [];
+
+  snapshot.forEach(async (element) => {
+    const sale = element.data();
+
+    const commodity = commodities.find(
+      (element) => element.id === sale?.commodityId,
+    );
+    const provider = providers.find(
+      (element) => element.id === sale?.providerId,
+    );
+
+    const composedData = {
       id: element.id,
-      ...element.data(),
-    });
+      commodityClass: sale.commodityClass,
+      commodity: {
+        name: commodity.name,
+      },
+      deliveryId: sale.deliveryId,
+      price: sale.price,
+      provider: {
+        name: provider.name,
+      },
+      quantity: sale.quantity,
+      saleDate: sale.saleDate,
+      saleType: sale.saleType,
+      total: sale.total,
+      unit: sale.unit,
+    };
+
+    data.push(composedData);
   });
-  return data || [];
+
+  return data;
 };
 
 export const getSale = async (id: any) => {

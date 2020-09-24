@@ -4,7 +4,8 @@
   "description": "backend api for garcitricos app",
   "main": "index.js",
   "scripts": {
-    "serve": "cd functions && npm run serve"
+    "serve": "cd functions && npm run serve",
+    "shell": "cd functions && npm run shell"
   },
   "repository": {
     "type": "git",
